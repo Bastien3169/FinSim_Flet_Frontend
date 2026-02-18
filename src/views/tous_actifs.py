@@ -7,8 +7,6 @@
 # Un handler doit forcément être une fonction (callable), qu’elle soit classique (réutilisable), anonyme (lambda), ou méthode de classe.
 
 import flet as ft
-from flet.plotly_chart import PlotlyChart
-import plotly.graph_objects as go
 from src.api_client.api_client import *
 from src.components.components_views import *
 
