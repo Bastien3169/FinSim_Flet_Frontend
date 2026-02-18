@@ -9,6 +9,8 @@ matplotlib>=3.10,<4.0
 # visualisation
 plotly>=5.24,<7.0
 
+python-dotenv==1.0.0
+
 
 # export images Plotly
 #kaleido==1.3.0

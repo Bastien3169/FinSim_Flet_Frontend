@@ -1,4 +1,8 @@
 import flet as ft
+import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
+import base64
+import io
 
 '''
 label_style → stylise le label
@@ -123,13 +127,13 @@ def bout_ret_haut(couleur_bouton_fleche, handler = None):
 
 
 # ------- Bouton retour acceuil -------
-def bout_ret_acceuil(couleur_bouton_fleche, handler = None):
-    bouton_retour = ft.ElevatedButton("Retour accueil",
-                                        icon=ft.Icons.HOME, # ajoute icône à gauche du texte
-                                        style=ft.ButtonStyle(color=ft.Colors.WHITE,
-                                                            bgcolor=couleur_bouton_fleche,
-                                                            padding=ft.padding.symmetric(horizontal=20, vertical=15)),
-                                        on_click=handler)  # Redirection vers la page d'accueil
+def bout_ret_acceuil(couleur_bouton_fleche, text="Retour accueil", handler = None, icons=ft.Icons.HOME):
+    bouton_retour = ft.ElevatedButton(text,
+                                    icon=icons, # ajoute icône à gauche du texte
+                                    style=ft.ButtonStyle(color=ft.Colors.WHITE,
+                                                        bgcolor=couleur_bouton_fleche,
+                                                        padding=ft.padding.symmetric(horizontal=20, vertical=15)),
+                                    on_click=handler)  # Redirection vers la page d'accueil
     
 
     container_bouton = ft.Container(content=bouton_retour,
@@ -141,22 +145,101 @@ def bout_ret_acceuil(couleur_bouton_fleche, handler = None):
 
 # ------- Structure tableau + cadre -------
 
-def tableau_cadre(expands = False, couleur=ft.Colors.WHITE, heights=None):
-    table = ft.DataTable(
-        expand= expands,
-        column_spacing=10,#espacement des colonnes
-        heading_row_height=30,#hauteur de la ligne de titre
-        heading_row_color=ft.Colors.with_opacity(1.0, "#1A1C24"),#couleur de fond de la ligne de titre
-        data_row_min_height=35,#hauteur minimale des lignes de données
-        data_row_max_height=35,#hauteur maximale des lignes de données
-        divider_thickness=0.5,#épaisseur des diviseurs entre les lignes
-        columns=[],#colonnes du tableau
-        rows=[],) #lignes du tableau
+def tableau_cadre(expands=False, couleur=ft.Colors.WHITE, heights=None):
+    table = ft.DataTable(expand=expands,
+                        column_spacing=10,
+                        heading_row_height=30,
+                        heading_row_color=ft.Colors.with_opacity(1.0, "#1A1C24"),
+                        data_row_min_height=35,
+                        data_row_max_height=35,
+                        divider_thickness=0.5,
+                        columns=[],
+                        rows=[],)
 
-    cadre_tableau = ft.Container(content=ft.Row([table], scroll=ft.ScrollMode.AUTO,),
+    # ✅ Scroll horizontal (pour les colonnes larges)
+    horizontal_scroll = ft.Row(controls=[table], scroll=ft.ScrollMode.AUTO,)
+
+    # ✅ Scroll vertical (pour les nombreuses lignes)
+    vertical_scroll = ft.Column(controls=[horizontal_scroll],
+                                scroll=ft.ScrollMode.AUTO,
+                                horizontal_alignment=ft.CrossAxisAlignment.START,)
+
+    # ✅ Cadre final
+    cadre_tableau = ft.Container(content=vertical_scroll,
                                 border=ft.border.all(1, couleur),
                                 border_radius=10,
                                 height=heights,
                                 padding=5,)
     
     return table, cadre_tableau
+
+
+# ------- graphique matplotlib actif -------
+def graphique_matplot_actif(page, couleur_titre_separateur, loader, chart_container, datas_actifs,dropdown_actif):  
+    loader.visible = True
+    page.update()
+
+    selected_actif = dropdown_actif.value
+    df = datas_actifs.get_prix_date(selected_actif)
+
+    if df.empty:
+        chart_container.content = ft.Text("Aucune donnée disponible", color="red")
+        loader.visible = False
+        page.update()
+        return
+
+    # -------- MATPLOTLIB --------
+    fig, ax = plt.subplots(figsize=(12, 8))
+
+    # ✅ Fond transparent
+    ax.plot(df['date'], df['close'], color=couleur_titre_separateur, linewidth=3)
+
+    # ✅ Titre
+    ax.set_title(f'Évolution du prix de {selected_actif}', color='white', fontsize=30,)
+
+    # ✅ Axe X
+    ax.xaxis.set_major_locator(mdates.AutoDateLocator())
+    ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y'))
+    ax.set_xlabel('Date', color='white', fontsize=20, labelpad=15)
+    ax.tick_params(axis='x', colors='white', labelsize=14, rotation=45)
+
+    # ✅ Axe Y
+    ax.set_ylabel('Prix', color='white', fontsize=20, labelpad=0)
+    ax.tick_params(axis='y', colors='white', labelsize=14, rotation=45)
+
+    # ✅ Grille sobre
+    ax.grid(True, axis='y', linestyle='-', alpha=0.25, color="#FFFFFF")
+
+    # ✅ Suppression des bordures graphiques
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+    ax.spines["bottom"].set_visible(False)
+    ax.spines["left"].set_visible(False)
+
+    # ✅ IMPORTANT : évite la coupe des labels
+    fig.tight_layout(pad=0.5)
+
+    # ✅ Export image transparente (sans couper les axes)
+    buf = io.BytesIO()
+    fig.savefig(buf, format='png', transparent=True, dpi=300)
+    buf.seek(0)
+    plt.close(fig)
+
+    img_base64 = base64.b64encode(buf.read()).decode("utf-8")
+
+    # -------- FLET --------
+    chart_container.content = ft.Column([ft.Container(content=ft.Image(src_base64=img_base64,
+                                                                    fit=ft.ImageFit.CONTAIN,
+                                                                    expand=True),
+                                                    expand=True,
+                                                    padding=0.5,
+                                                    # ✅ Bords arrondis
+                                                    border_radius=22,
+                                                    clip_behavior=ft.ClipBehavior.ANTI_ALIAS,
+                                                    # ✅ Fond glossy sombre
+                                                    bgcolor='black',),],
+                                        expand=True,)
+        
+    loader.visible = False
+    page.update()
+

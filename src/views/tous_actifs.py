@@ -9,22 +9,22 @@
 import flet as ft
 from flet.plotly_chart import PlotlyChart
 import plotly.graph_objects as go
-from src.models.control_datas.connexion_db_datas import *
+from src.api_client.api_client import *
 from src.components.components_views import *
 
 
 # Connexion DB indices
-datas_indices = FinanceDatabaseIndice(db_path="data.db")
+datas_indices = FinanceDatabaseIndice()
 liste_indices = datas_indices.get_list_indices()
 indice_default = "S&P 500"
 
 # Connexion DB pour stocks
-datas_stocks = FinanceDatabaseStocks(db_path="data.db")
+datas_stocks = FinanceDatabaseStocks()
 liste_stocks = datas_stocks.get_list_stocks()
 stock_default = "Apple Inc."
 
 # Connexion DB cryptos
-datas_cryptos = FinanceDatabaseCryptos(db_path="data.db")
+datas_cryptos = FinanceDatabaseCryptos()
 liste_cryptos = datas_cryptos.get_list_cryptos()
 crypto_default = "Bitcoin"
 

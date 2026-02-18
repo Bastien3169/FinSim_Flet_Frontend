@@ -5,12 +5,12 @@ matplotlib.use('Agg')  # Important pour Android
 import matplotlib.pyplot as plt
 import io
 import base64
-from src.models.control_datas.connexion_db_datas import *
+from src.api_client.api_client import *
 from src.controllers.LP_VS_DCA import *
 from src.components.components_views import *
 
 # -------------------- Connexion DB --------------------
-datas_actifs = FinanceDatabaseIndice(db_path="data.db")
+datas_actifs = FinanceDatabaseIndice()
 liste_actifs = datas_actifs.get_list_indices()
 actif_default = "S&P 500"
 

@@ -4,20 +4,15 @@
 # Installer les dépendances : pip install -r requirements.txt
 # Lancer l’application : python main.py
 
-import os
 import flet as ft
-
-# Configurer matplotlib pour Android pour ne qu'il créer son dossier de config dans un répertoire accessible en écriture
-os.environ['MPLCONFIGDIR'] = '/data/user/0/com.flet.flet_temp/cache/matplotlib'
-
 from src.controllers.navigation import route_change
-from src.models.users_db.models_db_users_test import AuthManager, ClientStorageWrapper 
-from src.services.auth_instance import auth_manager 
+from src.api_client.api_client import ClientStorageWrapper
+from src.authmanager_share import auth_manager 
 
 
 def main(page: ft.Page):
     page.clean()
-    page.title = "Finance facile"
+    page.title = "FinSim - Finance facile"
     page.window.width = 360
     page.window.height = 640
     page.vertical_alignment = ft.MainAxisAlignment.START
@@ -26,21 +21,21 @@ def main(page: ft.Page):
     page.spacing = 5
     page.scroll = "auto"
     page.theme_mode = ft.ThemeMode.DARK
-
-    # 🔑 IMPORTANT : Brancher les cookies
+    
+    # 🔧 IMPORTANT : Brancher le storage Flet
     auth_manager.cookies = ClientStorageWrapper(page.client_storage)
-
-    # 🔑 Vérifier la session au démarrage
+    
+    # 🔒 Vérifier la session au démarrage
     current_user = auth_manager.get_current_user()
     
     if current_user:
         page.route = "/"
     else:
         page.route = "/auth_manag"
-
+    
     def on_route_change(e):
         route_change(page)
-
+    
     page.on_route_change = on_route_change
     route_change(page)
 

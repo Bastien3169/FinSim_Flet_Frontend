@@ -9,15 +9,16 @@
 import flet as ft
 from flet.plotly_chart import PlotlyChart
 import plotly.graph_objects as go
-from src.models.control_datas.connexion_db_datas import *
+from src.api_client.api_client import *
 from src.components.components_views import *
 
 
 # Connexion DB et récupération des données
-datas_actifs = FinanceDatabaseCryptos(db_path="data.db")
-liste_actifs = datas_actifs.get_list_cryptos()
-infos_actifs = datas_actifs.get_infos_cryptos()
 actif_default = "Bitcoin"
+datas_actifs = FinanceDatabaseCryptos()
+liste_actifs = datas_actifs.get_list_cryptos()
+infos_actifs = datas_actifs.get_infos_cryptos(actif_default)
+
 
 couleur_titre_separateur = "#F7931A"
 couleur_bouton_fleche = "#FBBF63"

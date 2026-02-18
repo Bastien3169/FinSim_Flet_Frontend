@@ -1,12 +1,7 @@
-# src/views/admin_flet.py
 import flet as ft
-from src.models.users_db.models_db_users_test import AuthManager, AdminManager
-from src.models.datas_db.main_db_datas import *  # Pour les updates BDD
 from src.components.components_views import *
-
-# Instanciations
-auth_manager = AuthManager()
-admin_manager = AdminManager()
+from src.api_client.api_client import *
+from src.authmanager_share import auth_manager  # Import de l'instance globale
 
 # Couleurs et tailles
 couleur_titre_separateur = "#D67C7C"
@@ -426,7 +421,7 @@ def users_add_form(page: ft.Page):
  
 #################################### PAGE ADMIN PRINCIPALE ####################################
 
-def admin_flet(page: ft.Page):
+def admin_flet(page: ft.Page, auth_manager):
     page.title = "🏛️ Administration"
     page.scroll = "adaptive"
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER

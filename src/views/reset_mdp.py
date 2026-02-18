@@ -1,10 +1,6 @@
 import flet as ft
-from src.models.users_db.models_db_users_test import AuthManager, AdminManager
 from src.components.components_views import *
-from src.views import inscription
-import flet as ft
-
-db_path = "users.db"
+from src.authmanager_share import auth_manager
 
 # Couleurs
 couleur_titre_separateur = "#D67C7C"
@@ -14,8 +10,6 @@ couleur_bouton_fleche = "#E89292"
 
 ################################## VUE RESET MDP ################################
 def reset_password_view(page: ft.Page, token: str):
-
-    auth = AuthManager(db_path=db_path)
 
     # --- Titre + séparation ---
     titre = titre_separateur("🔑 Réinitialisation du mot de passe", couleur_titre_separateur)
@@ -72,7 +66,7 @@ def reset_password_view(page: ft.Page, token: str):
             return
 
         # Appel à la méthode métier
-        success, message = auth.reset_password_with_token(token, password)
+        success, message = auth_manager.reset_password_with_token(token, password)
 
         feedback.value = message
         feedback.color = ft.Colors.GREEN_300 if success else ft.Colors.RED_300

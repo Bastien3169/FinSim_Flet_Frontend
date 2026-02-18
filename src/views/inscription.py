@@ -1,8 +1,7 @@
 import flet as ft
-from src.models.users_db.models_db_users_test import AuthManager
+from src.api_client.api_client import AuthManager
 from src.components.components_views import *
-
-db_path = "users.db"
+from src.authmanager_share import auth_manager
 
 # Couleurs
 couleur_titre_separateur = "#D67C7C"
@@ -51,8 +50,7 @@ def register_view(page: ft.Page):
             page.update()
             return
 
-        auth = AuthManager(db_path)
-        success, message = auth.register(username, email, password)
+        success, message = auth_manager.register(username, email, password)
 
         feedback.value = message
         feedback.color = ft.Colors.GREEN_300 if success else ft.Colors.RED_300

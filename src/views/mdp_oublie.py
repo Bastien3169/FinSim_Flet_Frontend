@@ -1,10 +1,6 @@
 import flet as ft
-from src.models.users_db.models_db_users_test import AuthManager, AdminManager
 from src.components.components_views import *
-from src.views import inscription  
-import flet as ft
-
-db_path="users.db"
+from src.authmanager_share import auth_manager
 
 # Couleurs
 couleur_titre_separateur = "#D67C7C"
@@ -14,8 +10,6 @@ couleur_bouton_fleche = "#E89292"
 
 ################################## CONNEXION ################################
 def mdp_oublie_view(page: ft.Page):
-
-    auth = AuthManager(db_path=db_path)
 
     # --- Titre + séparation ---
     titre = titre_separateur("🔑 Réinitialisation mdp",couleur_titre_separateur)
@@ -38,7 +32,7 @@ def mdp_oublie_view(page: ft.Page):
             page.update()
             return
 
-        success, message = auth.forgot_password(email)
+        success, message = auth_manager.forgot_password(email)
 
         feedback.value = message
         feedback.color = ft.Colors.GREEN_300 if success else ft.Colors.RED_300

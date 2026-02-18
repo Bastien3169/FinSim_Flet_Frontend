@@ -1,14 +1,12 @@
-import yfinance as yf
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import seaborn as sns
 import plotly.express as px
 import plotly.graph_objects as go
 import plotly.colors as pc
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
-from src.models.control_datas.connexion_db_datas import *
+from src.api_client.api_client import *
 
 
 
@@ -19,24 +17,24 @@ def calcul_rendement(duree_invest=1, somme_investie=100000, mois_dca=6, ticker="
     date_debut = datetime.now() - relativedelta(months=(duree_invest * 12))
     date_fin = datetime.now()
 
-    datas_indices = FinanceDatabaseIndice(db_path="data.db")
+    datas_indices = FinanceDatabaseIndice()
     data_financiere = datas_indices.get_prix_date(ticker)
-    data_financiere = data_financiere[(data_financiere['Date'] >= date_debut) &
-                                      (data_financiere['Date'] <= date_fin)]
+    data_financiere = data_financiere[(data_financiere['date'] >= date_debut) &
+                                      (data_financiere['date'] <= date_fin)]
 
     if data_financiere.empty:
         return pd.DataFrame()
 
     # Remplace NaN par 0 pour pct_change
-    rendements_mois = data_financiere['Close'].pct_change().fillna(0)
+    rendements_mois = data_financiere['close'].pct_change().fillna(0)
     # On rajoute la colonne "rdt mois" arrondi à 3 chiffre
     data_financiere['Rdt mois'] = rendements_mois.round(3)
     # Arrondi de la colonne Close à 3 chiffres
-    data_financiere['Close'] = data_financiere['Close'].round(2)
+    data_financiere['close'] = data_financiere['close'].round(2)
     # Ds une nouvelle colonne, je réécris les dates pour meilleure lisibilité
-    data_financiere['Date_fr'] = data_financiere['Date'].dt.strftime('%d/%m/%Y')
+    data_financiere['Date_fr'] = data_financiere['date'].dt.strftime('%d/%m/%Y')
     # Réorganisation des colonnes
-    data_financiere = data_financiere[['Date', 'Date_fr', 'Close', 'Rdt mois']]
+    data_financiere = data_financiere[['date', 'Date_fr', 'close', 'Rdt mois']]
 
 
     #=============================== DCA ===============================
@@ -62,7 +60,7 @@ def calcul_rendement(duree_invest=1, somme_investie=100000, mois_dca=6, ticker="
     return data_financiere
 
 
-df = calcul_rendement(duree_invest = 1 , somme_investie = 100000, mois_dca = 6, ticker = "^GSPC")
+df = calcul_rendement(duree_invest = 1 , somme_investie = 100000, mois_dca = 6, ticker = "S&P 500")
 
 ################################### DF POUR GRAPHIQUE BAR ###################################
 def calcul_rendements_durations(durees=range(1, 26), mois_dca_list=[3, 6, 12, 24], somme_investie=100000, ticker="S&P 500"):
@@ -227,12 +225,12 @@ def graphe_line(df, somme_investie=100000):
 
             # Ajout de la trace au graphique
             fig.add_trace(go.Scatter(
-                x=mois['Date'],
+                x=mois['date'],
                 y=mois['DCA'],
                  mode='lines',
                 name=nom_trace,
                 line=dict(width=1.5, dash='dash', color=couleurs_dca[i % len(couleurs_dca)]), # Couleur cyclique
-                hovertemplate="Date: %{x}<br>Valeur: %{y:,.0f}€<extra></extra>" # Template du tooltip au survol
+                hovertemplate="date: %{x}<br>Valeur: %{y:,.0f}€<extra></extra>" # Template du tooltip au survol
             ))
 
             # Enregistrement de la durée pour les boutons de filtrage
@@ -250,12 +248,12 @@ def graphe_line(df, somme_investie=100000):
 
         # Ajout de la trace au graphique
         fig.add_trace(go.Scatter(
-            x=df_filtered['Date'],
+            x=df_filtered['date'],
             y=df_filtered['LS'],
             mode='lines',
             name=nom_trace,
             line=dict(width=2, color=couleurs_lump[j % len(couleurs_lump)]), # Couleur cyclique
-            hovertemplate="Date: %{x}<br>Valeur: %{y:,.0f}€<extra></extra>" # Template du tooltip au survol
+            hovertemplate="date: %{x}<br>Valeur: %{y:,.0f}€<extra></extra>" # Template du tooltip au survol
         ))
 
         # Enregistrement de la durée pour les boutons de filtrage

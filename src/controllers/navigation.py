@@ -1,9 +1,6 @@
-from src.views import home, indices #, stocks, etfs, cryptos, dca_vs_lp, maj_bd
-import flet as ft
-
 from src.views import home, indices, stocks, ETFs, dca_vs_lp, cryptos, tous_actifs, admin, auth_manag, inscription, mdp_oublie, reset_mdp, test #, etfs, cryptos, dca_vs_lp, maj_bd
 import flet as ft
-
+from src.authmanager_share import auth_manager  # Import de l'instance globale
 
 
 def route_change(page: ft.Page):  # Pas besoin de guillemets
@@ -27,7 +24,7 @@ def route_change(page: ft.Page):  # Pas besoin de guillemets
     elif route == "/admin":  
         admin.admin_flet(page)
     elif route == "/auth_manag":  
-        auth_manag.auth_manage_page(page)
+        auth_manag.auth_manage_page(page) 
     elif route == "/inscription":  
         inscription.register_page(page)
     elif route == "/mdp_oublie":  

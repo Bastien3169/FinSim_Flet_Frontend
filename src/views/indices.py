@@ -7,17 +7,15 @@
 # Un handler doit forcément être une fonction (callable), qu’elle soit classique (réutilisable), anonyme (lambda), ou méthode de classe.
 
 import flet as ft
-from flet.plotly_chart import PlotlyChart
-import plotly.graph_objects as go
-from src.models.control_datas.connexion_db_datas import *
+from src.api_client.api_client import *
 from src.components.components_views import *
 
 
 # Connexion DB et récupération des données
-datas_actifs = FinanceDatabaseIndice(db_path="data.db")
-liste_actifs = datas_actifs.get_list_indices()
-infos_actifs = datas_actifs.get_infos_indices()
 actif_default = "S&P 500"
+datas_actifs = FinanceDatabaseIndice()
+liste_actifs = datas_actifs.get_list_indices()
+infos_actifs = datas_actifs.get_infos_indices(actif_default)
 
 couleur_titre_separateur = "#00B388"
 couleur_bouton_fleche = "#21C4A0"
@@ -26,72 +24,32 @@ couleur_bouton_fleche = "#21C4A0"
 def create_graph_section(page):
     page.scroll = "auto"
 
-    # fonction : titre + séparateur dans conteneur
-    titre = titre_separateur(text = "📈 Graphique de l'indice", padding_text_top = 0, couleur_titre_separateur = couleur_titre_separateur)
+    # Titre + séparateur
+    titre = titre_separateur(text="📈 Graphique de l'indice", padding_text_top=0, couleur_titre_separateur="#00B388")
 
-    # Fonction : Dropdown (menu déroulant)
-    dropdown_actif = dropdown ("Sélectionnez un indice", actif_default, liste_actifs, handler= None)
+    # Dropdown pour sélectionner l'indice
+    dropdown_actif = dropdown("Sélectionnez un indice", actif_default, liste_actifs, handler=None)
 
-    # Widget : graphique PlotlyChart vide
-    graphique = PlotlyChart(figure=go.Figure(), visible=False)
+     # Container pour le graphique
+    chart_container = ft.Container(content=ft.Text("Chargement du graphique...", color="white"),
+                                   expand=True,) 
 
-    # Fonction : loader (anneau de chargement)
+    # Loader
     loader = loader_page(couleur_titre_separateur)
 
-    def update_graph(e):  # Met à jour le graphique quand on change l'indice
-        loader.visible = True
-        graphique.visible = False
-        page.update()
+    def update_graph(e):
+        test = graphique_matplot_actif(page, couleur_titre_separateur, loader, chart_container, datas_actifs,dropdown_actif)
+        return test
 
-        # Récupérer l'indice sélectionné
-        selected_indice = dropdown_actif.value
-
-        # Récupérer les données de l'indice sélectionné
-        df = datas_actifs.get_prix_date(selected_indice)
-
-        # Convertir les dates en string
-        df['Date'] = df['Date'].astype(str)
-
-        # Créer le graphique avec Plotly
-        fig = go.Figure(go.Scatter(x=df["Date"], y=df["Close"], mode='lines', name=selected_indice, line=dict(color='#6DBE8C', width=2)))
-
-        # Personnalisation du graphique
-        fig.update_layout(
-            title=f"Évolution de {selected_indice}",
-            title_font=dict(size=22, color='white', family='Arial Black'),
-            plot_bgcolor='black', 
-            paper_bgcolor='black', 
-            font=dict(color='white'),
-            xaxis_title="Date", 
-            yaxis_title="Prix de clôture",
-            hovermode='x unified', 
-            dragmode='zoom',
-            margin=dict(l=50, r=50, t=80, b=50),
-            xaxis=dict(showgrid=False, zeroline=False, showline=False, tickangle=-45),
-            yaxis=dict(gridcolor='rgba(255,255,255,0.25)', zeroline=False, showline=False)
-        )
-
-        # Mise à jour du graphique
-        graphique.figure = fig
-
-        # Rendre le graphique visible après la première mise à jour pour pas avoir chart blanc au départ
-        graphique.visible = True
-
-        # Enlever le loader
-        loader.visible = False
-
-        # Mettre à jour la page
-        page.update()
-
-    # Lier "dropdown_indice" à la fonction "update_graph" grace à l'événement "on_change"  qui est un callback
+    # Lier le dropdown
     dropdown_actif.on_change = update_graph
 
-    # Appel initial pour afficher le graphique par défaut
+    # Affichage initial
     update_graph(None)
 
-    contenu = contenu_widget(titre, [dropdown_actif, loader, graphique])
-    
+    contenu = contenu_widget(titre, [dropdown_actif, loader, chart_container])
     return [contenu]
+
 
 ################################## TABLEAU COMPARATIF RENDEMENTS ################################
 

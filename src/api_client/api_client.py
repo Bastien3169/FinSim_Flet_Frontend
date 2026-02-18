@@ -1,8 +1,9 @@
 import os
 import requests
 import pandas as pd
-from streamlit_cookies_manager import EncryptedCookieManager 
-import streamlit as st
+from dotenv import load_dotenv
+
+load_dotenv()
 
 API_URL = os.getenv("API_URL", "http://localhost:8000")
 
@@ -10,18 +11,36 @@ def get_api_url():
     """Retourne l'URL de l'API (utilisée par les classes de données)"""
     return API_URL
 
+
 # ============================================
-#  AUTH MANAGER AVEC COOKIES (FRONTEND)
+# AUTH MANAGER AVEC COOKIES (FRONTEND FLET)
 # ============================================
-class AuthManager:
-    """Gestion auth via API avec cookies Streamlit"""
+
+class ClientStorageWrapper:
+    """Wrapper pour adapter client_storage de Flet aux cookies"""
+    def __init__(self, storage):
+        self.storage = storage
     
-    def __init__(self, cookie_name="session_id", cookie_secret="Toulouse31"):
+    def get(self, key):
+        return self.storage.get(key)
+    
+    def __setitem__(self, key, value):
+        self.storage.set(key, value)
+    
+    def __getitem__(self, key):
+        return self.storage.get(key)
+    
+    def save(self):
+        pass  # Flet sauvegarde automatiquement
+
+
+class AuthManager:
+    """Gestion auth via API (compatible Flet)"""
+    
+    def __init__(self, cookie_name="session_id", cookies=None):
         self.api_url = API_URL
         self.cookie_name = cookie_name
-        self.cookies = EncryptedCookieManager(prefix="", password=cookie_secret)
-        if not self.cookies.ready():
-            st.stop()
+        self.cookies = cookies  # Sera injecté depuis main.py
     
     def login(self, email, password, stay_connected=False):
         try:
@@ -36,7 +55,7 @@ class AuthManager:
                 if "session_id" in data:
                     self.cookies[self.cookie_name] = data["session_id"]
                     self.cookies.save()
-                return True, data["message"], data["role"]
+                return True, data["message"], data.get("role", "user")
             
             return False, response.json().get("detail", "Erreur"), None
         except Exception as e:
@@ -119,7 +138,6 @@ class AuthManager:
             return False, response.json().get("detail", "Erreur")
         except Exception as e:
             return False, f"Erreur serveur: {str(e)}"
-
 # ============================================
 # CLIENT ADMIN
 # ============================================
