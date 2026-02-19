@@ -52,6 +52,8 @@ def dropdown (text, actif_default, liste_actifs, handler= None):
                                 border_color=ft.Colors.WHITE30,
                                 on_change=handler,
                                 value=actif_default,
+                                editable=True, # Sert à editer pour filtrer
+                                enable_filter=True,  # sert à filtrer
                                 expand=True,
                                 width=400,)
     return dropdown_multi
