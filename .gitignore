@@ -1,6 +1,10 @@
 # Environnements virtuels
 venv/
 .venv/
+*venv
+*venv311
+*venv/
+*venv311/
 
 
 # Caches et artefacts
