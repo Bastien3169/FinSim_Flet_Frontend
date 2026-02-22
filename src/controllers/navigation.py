@@ -1,4 +1,4 @@
-from src.views import home, indices, stocks, ETFs, dca_vs_lp, cryptos, tous_actifs, admin, auth_manag, inscription, mdp_oublie, reset_mdp, test
+from src.views import home, indices, sim_portefeuille, stocks, ETFs, dca_vs_lp, cryptos, admin, auth_manag, inscription, mdp_oublie, reset_mdp, test
 import flet as ft
 
 
@@ -16,8 +16,8 @@ def route_change(page: ft.Page):  # Pas besoin de guillemets
         ETFs.etfs_page(page)
     elif route == "/cryptos":
         cryptos.cryptos_page(page)
-    elif route == "/tous_actifs":
-        tous_actifs.actifs_page(page)
+    elif route == "/sim_portefeuille":  
+        sim_portefeuille.actifs_page(page)
     elif route == "/dca_vs_lp":
         dca_vs_lp.dca_lp_page(page)
     elif route == "/admin":  

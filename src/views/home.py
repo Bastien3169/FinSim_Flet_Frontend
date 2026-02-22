@@ -8,7 +8,7 @@ def main_page(page: ft.Page):
     page.clean()
 
     # --- Titre + séparation ---
-    titre = titre_separateur("🏠 Accueil",couleur_titre_separateur)
+    titre = titre_separateur("🏠 Accueil FinSim",couleur_titre_separateur)
 
     # Texte de bienvenue
     texte_bienvenu = ft.Container(content=ft.Text("Bienvenue sur Finance Facile !",
@@ -22,10 +22,11 @@ def main_page(page: ft.Page):
                                         alignment=ft.alignment.center)
 
     #Texte explicatif application
-    texte_explication = ft.Container(content=ft.Text("Cette application vous permet de comparer facilement différents actifs financiers et d’analyser " \
-                                                "leurs performances historiques. \nElle simule deux stratégies d’investissement : le DCA (investissement progressif) et le Lump Sum "
-                                                "(investissement en une seule fois), pour vous aider à visualiser laquelle est la plus adaptée à vos objectifs. \nElle n’a pas pour but de " \
-                                                "vous inciter à investir, mais uniquement de proposer un outil pédagogique basé sur des données officielles passées.", 
+    texte_explication = ft.Container(content=ft.Text("Analysez les performances historiques des indices, actions, cryptos et ETF en un clin d'œil.\n"
+                                                    "Simulez vos stratégies DCA (progressif) ou Lump Sum (en une fois).\n" 
+                                                    "Construisez votre portefeuille pour simuler des rendements passés.\n"
+                                                    "Outil pédagogique sans risque : apprenez à investir sans conseil financier.\n\n" 
+                                                    "Bonne visite !",
                                                  color=couleur_titre_separateur, 
                                                  size=12, 
                                                  text_align=ft.TextAlign.JUSTIFY,),
@@ -39,7 +40,7 @@ def main_page(page: ft.Page):
         ("Stocks", ft.Colors.AMBER_200, "/stocks"),       # Vert clair
         ("ETFs", ft.Colors.CYAN_200, "/ETFs"),         # Orange doux
         ("Cryptos", "#F7931A", "/cryptos"),     # Couleur Bitcoin
-        ("Tous Actifs", ft.Colors.PURPLE_200, "/tous_actifs"),
+        ("Simulation\nPortefeuille", ft.Colors.PURPLE_200, "/sim_portefeuille"),
         ("DCAvsLP", ft.Colors.CYAN_400 , "/dca_vs_lp"),  # Rouge doux
         ("Admin", "#D67C7C", "/admin"),       # Bleu clair
         ("Auth manag", "#D67C7C", "/auth_manag"),       # Bleu clair
@@ -56,7 +57,7 @@ def main_page(page: ft.Page):
     buttons = []
     for name, color, route in tiles_button:
         btn = ft.ElevatedButton(
-            content=ft.Text(name, size=12),# "content" accepte les widjets, pas juste du texte
+            content=ft.Text(name, size=12, text_align=ft.TextAlign.CENTER,),# "content" accepte les widjets, pas juste du texte
             bgcolor=color,
             color=ft.Colors.BLACK,
             on_click=lambda e, r=route: page.go(r), # Utilisation de r=route pour capturer la route correcte au momment de l'itération
@@ -83,7 +84,7 @@ def main_page(page: ft.Page):
         padding=ft.padding.only(top=20)
     )
     
-    page.add(*titre, texte_bienvenu, grid_avec_espace, separation, texte_explication,)
+    page.add(*titre, grid_avec_espace, separation, texte_explication,)
 
     page.update()
 
