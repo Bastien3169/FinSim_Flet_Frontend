@@ -74,3 +74,21 @@ find . -name "*.pyc" -delete
 
 # Build .apk avec icon
 flet build apk --verbose
+flet build apk --arch arm64-v8a --exclude .git
+flet build aab --arch arm64-v8a --exclude venv --exclude venv311 --exclude .git
+
+########## connaitre taille fichier dans dossier ##########
+# 1. Tous ce qu'il y a dans le dossier
+du -sh * 
+# 2. Dans un dossier précis
+du -sh nom_du_dossier
+# 3. Détaille dans un dossier précis
+du -sh storage/*
+# 4. Trie du plus - au plus +
+du -sh * | sort -h
+
+
+du = disk usage → utilisation disque
+-s = summary → donne juste le total par dossier (pas le détail interne)
+-h = human readable → format lisible (Ko, Mo, Go)
+* = tous les fichiers/dossiers du dossier courant

@@ -7,6 +7,7 @@ cat > .fletignore << 'EOF'
 .venv
 .venv311
 venv
+venv311
 .env
 
 # Données lourdes
@@ -28,6 +29,7 @@ src/models/datas_db/
 
 # Git / IDE
 .git/
+.git
 .gitignore
 *.swp
 *.bak
@@ -40,4 +42,6 @@ src/models/datas_db/
 build/
 dist/
 .dart_tool/
-EOF
+EOF.git/
+**/.git/**
+.git

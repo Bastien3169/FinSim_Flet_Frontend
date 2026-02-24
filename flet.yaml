@@ -16,3 +16,13 @@ android:
 ios:
   icon: assets/icon_fond.png
   launch_image: assets/icon_fond.png
+
+
+# 📦 Dépendances
+dependencies:
+    - requests
+    #- bcrypt
+    #- numpy
+    #- pandas
+    #- matplotlib
+    #- python-dotenv

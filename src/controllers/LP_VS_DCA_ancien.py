@@ -1,14 +1,12 @@
-import yfinance as yf
-import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import seaborn as sns
-import plotly.express as px
-import plotly.graph_objects as go
-import plotly.colors as pc
+#import seaborn as sns
+#import plotly.express as px
+#import plotly.graph_objects as go
+#import plotly.colors as pc
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
-from src.models.control_datas.connexion_db_datas import *
+#from src.models.control_datas.connexion_db_datas import *
 
 
 

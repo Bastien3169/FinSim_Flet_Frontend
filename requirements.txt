@@ -1,5 +1,6 @@
 flet==0.28.3
 bcrypt==4.2.0
+requests == 2.31.0
 
 # stack data / maths
 numpy>=1.26,<3.0
@@ -7,7 +8,7 @@ pandas>=2.2,<3.0
 matplotlib>=3.10,<4.0
 
 # visualisation
-plotly>=5.24,<7.0
+#plotly>=5.24,<7.0
 
 python-dotenv==1.0.0
 
