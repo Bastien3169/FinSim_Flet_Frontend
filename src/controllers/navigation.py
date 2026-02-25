@@ -31,7 +31,7 @@ def route_change(page: ft.Page):  # Pas besoin de guillemets
     elif route == "/reset_mdp":  
         reset_mdp.reset_mdp(page)
     elif route == "/test": 
-        test.actifs_page(page)
+        test.main_page(page)
     else:
         page.add(ft.Text("❌ Page introuvable", size=20))
     

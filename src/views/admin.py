@@ -9,6 +9,7 @@ couleur_bouton = "#E89292"
 taille_titre = 20
 
 bouton_on_click = bouton_on_click
+admin_manager = AdminManager()
 
 ############################## FONCTION INTERACTIVE MAJ BDD ##############################
 
@@ -132,13 +133,17 @@ def users_admin_flet(page: ft.Page):
             return
 
         # Recherche utilisateur
-        user = admin_manager.get_user_by_email_username(search)
+        user = admin_manager.search_user(search)
         if not user:
             results_column.controls.append(ft.Text("⚠️ Aucun utilisateur trouvé.", color=ft.Colors.RED, size=12, weight="bold", text_align=ft.TextAlign.CENTER ))
             page.update()
             return
 
-        id, username, email, role, registration_date = user
+        id = user["id"]
+        username = user["username"]
+        email = user["email"]
+        role = user["role"]
+        registration_date = user["registration_date"]
 
         # Fiche utilisateur sous forme de colonne
         fiche = ft.Column([ft.Row([ft.Text("🆔 ID : ", weight=ft.FontWeight.BOLD, color=ft.Colors.BLUE),
@@ -201,7 +206,11 @@ def users_admin_flet(page: ft.Page):
 
     # Création du formulaire d'édition
     def edit_form(user):
-        id, username, email, role, registration_date = user
+        id = user["id"]
+        username = user["username"]
+        email = user["email"]
+        role = user["role"]
+        registration_date = user["registration_date"]
 
         new_username = ft.TextField(label="Nouveau nom d'utilisateur",
                                     label_style=ft.TextStyle(italic=True, size=12),
@@ -292,26 +301,17 @@ def users_table_simple():
         heading_row_color=ft.Colors.with_opacity(1.0, "#1A1C24"),
         data_row_min_height=25,
         divider_thickness=0.5,
-        columns=[
-            ft.DataColumn(ft.Text("ID", size=11)),
-            ft.DataColumn(ft.Text("Username", size=11)),
-            ft.DataColumn(ft.Text("Email", size=11)),
-            ft.DataColumn(ft.Text("Rôle", size=11)),
-            ft.DataColumn(ft.Text("Date inscription", size=11)),
-        ],
-        rows=[
-            ft.DataRow(
-                cells=[
-                    ft.DataCell(ft.Text(str(id), size=11)),
-                    ft.DataCell(ft.Text(username, size=11)),
-                    ft.DataCell(ft.Text(email, size=11)),
-                    ft.DataCell(ft.Text(role, size=11)),
-                    ft.DataCell(ft.Text(str(registration_date), size=11)),
-                ]
-            )
-            for (id, username, email, role, registration_date) in all_users
-        ],
-    )
+        columns=[ft.DataColumn(ft.Text("ID", size=11)),
+                 ft.DataColumn(ft.Text("Username", size=11)),
+                ft.DataColumn(ft.Text("Email", size=11)),
+                ft.DataColumn(ft.Text("Rôle", size=11)),
+                ft.DataColumn(ft.Text("Date inscription", size=11)),],
+        rows=[ft.DataRow(cells=[ft.DataCell(ft.Text(str(user["id"]), size=11)),
+                                ft.DataCell(ft.Text(user["username"], size=11)),
+                                ft.DataCell(ft.Text(user["email"], size=11)),
+                                ft.DataCell(ft.Text(user["role"], size=11)),
+                                ft.DataCell(ft.Text(str(user["registration_date"]), size=11)),])
+                    for user in all_users])
 
     # Optionnel : cadre scrollable (comme tes autres tableaux)
     cadre_table_users = ft.Container(content=ft.Column([users_table],
@@ -421,7 +421,7 @@ def users_add_form(page: ft.Page):
  
 #################################### PAGE ADMIN PRINCIPALE ####################################
 
-def admin_flet(page: ft.Page, auth_manager):
+def admin_flet(page: ft.Page):
     page.title = "🏛️ Administration"
     page.scroll = "adaptive"
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
