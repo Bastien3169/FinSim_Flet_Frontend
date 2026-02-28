@@ -19,8 +19,8 @@ datas_etfs = FinanceDatabaseEtfs()
 liste_etfs = [e for e in datas_etfs.get_list_etfs() if e and isinstance(e, str)]
 etf_default = "Amundi NYSE Arca Gold"
 
-couleur_titre_separateur = ft.Colors.PURPLE_300
-couleur_bouton_fleche = ft.Colors.PURPLE_600
+couleur_titre_separateur = "#FACC15"
+couleur_bouton_fleche = "#FFE066"
 
 
 ################################## SECTION PRINCIPALE ################################
@@ -37,10 +37,14 @@ def create_rendement_section(page):
                              couleur_titre_separateur=couleur_titre_separateur)
 
     # ------- DROPDOWNS -------
-    dropdown_indices = dropdown("📈 Ajouter un indice", indice_default, liste_indices, handler=lambda e: ajouter_actif(e.control.value))
-    dropdown_stocks = dropdown("🏢 Ajouter une entreprise", stock_default, liste_stocks, handler=lambda e: ajouter_actif(e.control.value))
-    dropdown_cryptos = dropdown("₿ Ajouter une crypto", crypto_default, liste_cryptos, handler=lambda e: ajouter_actif(e.control.value))
-    dropdown_etfs = dropdown("💼 Ajouter un ETF", etf_default, liste_etfs, handler=lambda e: ajouter_actif(e.control.value))
+    # ft.column pour empiler les dropdowns verticalement avec un espacement de 20px entre eux
+    dropdowns = ft.Column([
+    dropdown("📈 Ajouter un indice", indice_default, liste_indices, handler=lambda e: ajouter_actif(e.control.value)),
+    dropdown("🏢 Ajouter une entreprise", stock_default, liste_stocks, handler=lambda e: ajouter_actif(e.control.value)),
+    dropdown("₿ Ajouter une crypto", crypto_default, liste_cryptos, handler=lambda e: ajouter_actif(e.control.value)),
+    dropdown("💼 Ajouter un ETF", etf_default, liste_etfs, handler=lambda e: ajouter_actif(e.control.value)),
+    ], 
+    spacing=15)
 
     # ------- LISTE ACTIFS + PONDÉRATIONS -------
     titre_portefeuille = ft.Text("📊 Composition du portefeuille (%)",
@@ -243,10 +247,7 @@ def create_rendement_section(page):
     update_table()
 
     contenu = contenu_widget(titre, [
-        dropdown_indices,
-        dropdown_stocks,
-        dropdown_cryptos,
-        dropdown_etfs,
+        dropdowns,
         cadre_portefeuille,
         cadre_periodes,
         cadre_tableau

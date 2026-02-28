@@ -25,7 +25,7 @@ def create_graph_section(page):
     page.scroll = "auto"
 
     # Titre + séparateur
-    titre = titre_separateur(text="📈 Graphique de l'indice", padding_text_top=0, couleur_titre_separateur="#00B388")
+    titre = titre_separateur(text="📈 Graphiques des l'indices", padding_text_top=0, couleur_titre_separateur="#00B388")
 
     # Dropdown pour sélectionner l'indice
     dropdown_actif = dropdown("Sélectionnez un indice", actif_default, liste_actifs, handler=None)

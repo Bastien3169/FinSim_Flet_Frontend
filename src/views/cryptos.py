@@ -25,7 +25,7 @@ def create_graph_section(page):
     page.scroll = "auto"
 
     # fonction : titre + séparateur dans conteneur
-    titre = titre_separateur(text="📈 Graphiques de la crypto",padding_text_top = 0, couleur_titre_separateur=couleur_titre_separateur)
+    titre = titre_separateur(text="📈 Graphiques des cryptos",padding_text_top = 0, couleur_titre_separateur=couleur_titre_separateur)
 
     # Fonction : Dropdown (menu déroulant)
     dropdown_actif = dropdown("Sélectionnez une crypto", actif_default, liste_actifs, handler=None)

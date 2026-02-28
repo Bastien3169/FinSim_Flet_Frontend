@@ -16,14 +16,15 @@ liste_actifs = datas_actifs.get_list_indices()
 actif_default = "S&P 500"
 
 # -------------------- Styles --------------------
-couleur_titre_separateur = ft.Colors.CYAN_400 #
-couleur_bouton_fleche = ft.Colors.CYAN_700
+couleur_titre_separateur = "#EF6B55"
+couleur_bouton_fleche = "#F4826E"
+
 titre_size = 20
 
 
 ################################## INPUT SECTION ##################################
 def create_input_section():
-    titre = titre_separateur(text="📊 Simulation DCA vs LS", padding_text_top=0,
+    titre = titre_separateur(text="⚖️ Simulation DCA vs LS", padding_text_top=0,
                             couleur_titre_separateur=couleur_titre_separateur)
     dropdown_actif = dropdown("Sélectionnez un indice pour le graphique",
                              actif_default, liste_actifs, handler=None)
@@ -463,7 +464,7 @@ def dca_lp_page(page: ft.Page):
     controls_column = ft.Column(
         controls=[dropdown_indice, input_montant, input_durees, 
                  input_mois_dca, bouton_simulation],
-        spacing=25,
+        spacing=15,
         horizontal_alignment=ft.CrossAxisAlignment.CENTER,
         alignment=ft.MainAxisAlignment.START,
         tight=False

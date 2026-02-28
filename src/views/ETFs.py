@@ -9,15 +9,15 @@ liste_actifs = datas_actifs.get_list_etfs()
 #liste_actifs = [e for e in datas_actifs.get_list_etfs() if e and isinstance(e, str)] # Filtre les valeurs nulles car Flet plante contrairement à streamlit (il y a un shotname vide dans la liste (bug yfinance?))
 infos_actifs = datas_actifs.get_infos_etfs(actif_default)
 
-couleur_titre_separateur = "#FFD54F"
-couleur_bouton_fleche = "#FFCA28"
+couleur_titre_separateur = "#BA68C8"
+couleur_bouton_fleche = "#8E24AA" 
 
 
 ################################## GRAPHIQUE #################################################
 def create_graph_section(page):
     page.scroll = "auto"
 
-    titre = titre_separateur(text="📈 Graphique de l'ETF", padding_text_top=0, couleur_titre_separateur=couleur_titre_separateur)
+    titre = titre_separateur(text="📈 Graphiques des l'ETFs", padding_text_top=0, couleur_titre_separateur=couleur_titre_separateur)
 
     dropdown_actif = dropdown("Sélectionnez un ETF", actif_default, liste_actifs, handler=None)
 

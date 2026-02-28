@@ -18,15 +18,15 @@ liste_actifs = datas_actifs.get_list_stocks()
 infos_actifs = datas_actifs.get_infos_stocks(actif_default)
 
 
-couleur_titre_separateur = "#81D4FA"
-couleur_bouton_fleche = "#90CAF9"
+couleur_titre_separateur = "#22D3EE" 
+couleur_bouton_fleche = "#67E8F9"
 
 ################################## GRAPHIQUE #################################################
 def create_graph_section(page):
     page.scroll = "auto"
     
     # fonction : titre + séparateur dans conteneur
-    titre = titre_separateur(text = "📈 Graphique de l'entreprise", padding_text_top = 0, couleur_titre_separateur = couleur_titre_separateur)
+    titre = titre_separateur(text = "📈 Graphiques des entreprises", padding_text_top = 0, couleur_titre_separateur = couleur_titre_separateur)
 
     # Fonction : Dropdown (menu déroulant)
     dropdown_actif = dropdown ("Sélectionnez une entreprise", actif_default, liste_actifs, handler= None)
