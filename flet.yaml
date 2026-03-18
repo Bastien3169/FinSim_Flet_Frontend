@@ -2,29 +2,32 @@
 name: FinSim
 display_name: FinSim
 org: com.maurieres.finsim
+project: FinSim
 description: Application de simulation de placement financier.
 version: 1.0.0
 author: Bastien Maurieres
 
-# 🎨 Icône de l'app 
-icon: assets/icon_fond.png
+# 🎨 Icône de l'app
+icon: assets/icon.png
 
 # 📱 Config Android
 android:
-  adaptive_icon_background: assets/icon_fond.png
-  adaptive_icon_foreground: assets/icon_devant.png
+  icon: assets/icon.png
+  splash_color: "#3A8A4A" # couleur de fond du splash (ton vert)
+  splash_dark_color: "#3A8A4A" # même couleur en mode sombre
 
-# 🍎 Config iOS (si besoin)
+# 🍎 Config iOS
 ios:
-  icon: assets/icon_fond.png
-  launch_image: assets/icon_fond.png
-
+  icon: assets/icon.png
+  launch_image: assets/icon.png
+  splash_color: "#3A8A4A"
+  splash_dark_color: "#3A8A4A"
 
 # 📦 Dépendances
 dependencies:
-    - requests
-    #- bcrypt
-    #- numpy
-    #- pandas
-    #- matplotlib
-    #- python-dotenv
+  - requests
+  #- bcrypt
+  #- numpy
+  #- pandas
+  #- matplotlib
+  #- python-dotenv

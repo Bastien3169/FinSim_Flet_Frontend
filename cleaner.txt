@@ -70,12 +70,20 @@ find . -name "*.pyc" -delete
 
 
 
-########## Recommandation : Commande Flet ##########
+########## Commande Flet pour build ##########
 
 # Build .apk avec icon
 flet build apk --verbose
 flet build apk --arch arm64-v8a --exclude .git
 flet build aab --arch arm64-v8a --exclude venv --exclude venv311 --exclude .git
+flet build apk --arch arm64-v8a --exclude .git --project "FinSim" --org com.maurieres.finsim
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+
+########## Image icon ##########
+Il faut que l'image s'appelle "icon.png" et dans un fichier .yaml car apparement ca marche pas sur .toml
+
+
 
 ########## connaitre taille fichier dans dossier ##########
 # 1. Tous ce qu'il y a dans le dossier

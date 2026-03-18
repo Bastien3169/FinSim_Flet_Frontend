@@ -1,0 +1,16 @@
+[tool.flet]
+name = "FinSim"
+display_name = "FinSim"
+org = "com.maurieres.finsim"
+description = "Application de simulation de placement financier."
+version = "1.0.0"
+author = "Bastien Maurieres"
+icon = "assets/icon.png"
+dependencies = ["requests"]
+
+[tool.flet.android]
+icon = "assets/icon.png"
+
+[tool.flet.ios]
+icon = "assets/icon.png"
+launch_image = "assets/icon.png"
