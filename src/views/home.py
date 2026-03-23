@@ -93,6 +93,20 @@ def main_page(page: ft.Page):
                                                color="#F7F7F7",
                                                size=9,),
                                 alignment=ft.alignment.center,)
+    
+    # --- Lien vers version web ---
+    lien_web = ft.Container(
+        content=ft.Text(
+            spans=[
+                ft.TextSpan("Version web pour ordinateur, "),
+                ft.TextSpan("ici",style=ft.TextStyle(
+                                                    color=couleur_titre_separateur,),
+                                on_click=lambda e: page.launch_url("https://finsim.up.railway.app/")),
+            ],
+        ),
+        alignment=ft.alignment.center,
+        padding=ft.padding.only(top=10),
+    )
 
     # --- Ajout des éléments à la page ---
     page.add(
@@ -100,6 +114,7 @@ def main_page(page: ft.Page):
         grid_avec_espace,
         separation, 
         texte_explication,
+        lien_web,
         bout_logout,
         texte_droit
     )

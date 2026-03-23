@@ -22,26 +22,21 @@ def main(page: ft.Page):
     page.spacing = 5
     page.scroll = "auto"
     page.theme_mode = ft.ThemeMode.DARK
-
-    # 🔄 Loader de démarrage
-    loader = loader_globale("#3A8A4A")
-    page.add(loader)
-    page.update()
-
-    # 🔧 Brancher le storage Flet
+    
+    # 🔧 IMPORTANT : Brancher le storage Flet
     auth_manager.cookies = ClientStorageWrapper(page.client_storage)
-
-    # 🔒 Vérifier la session
+    
+    # 🔒 Vérifier la session au démarrage
     current_user = auth_manager.get_current_user()
-
+    
     if current_user:
         page.route = "/"
     else:
         page.route = "/auth_manag"
-
+    
     def on_route_change(e):
         route_change(page)
-
+    
     page.on_route_change = on_route_change
     route_change(page)
 
