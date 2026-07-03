@@ -17,7 +17,7 @@ crypto_default = "Bitcoin"
 
 datas_etfs = FinanceDatabaseEtfs()
 liste_etfs = [e for e in datas_etfs.get_list_etfs() if e and isinstance(e, str)]
-etf_default = "Amundi NYSE Arca Gold"
+etf_default = "Amundi Gold Miners UCITS ETF Di"
 
 couleur_titre_separateur = "#FACC15"
 couleur_bouton_fleche = "#FFE066"

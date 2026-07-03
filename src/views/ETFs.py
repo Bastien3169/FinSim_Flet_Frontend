@@ -3,7 +3,7 @@ from src.api_client.api_client import *
 from src.components.components_views import *
 
 # Connexion DB et récupération des données
-actif_default = "Amundi NYSE Arca Gold"
+actif_default = "Amundi Gold Miners UCITS ETF Di"
 datas_actifs = FinanceDatabaseEtfs()
 liste_actifs = datas_actifs.get_list_etfs()
 #liste_actifs = [e for e in datas_actifs.get_list_etfs() if e and isinstance(e, str)] # Filtre les valeurs nulles car Flet plante contrairement à streamlit (il y a un shotname vide dans la liste (bug yfinance?))
