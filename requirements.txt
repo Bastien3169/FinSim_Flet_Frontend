@@ -1,7 +1,7 @@
 flet==0.28.3
 bcrypt==4.2.0
 # Obliger de mettre request ici car Flet ne l'integre pas dans son python embarqué
-requests == 2.31.0
+requests == 2.32.4
 
 # stack data / maths
 numpy>=1.26,<3.0
