@@ -303,7 +303,7 @@ def create_simulation_handler(page: ft.Page, dropdown_indice, input_montant,
         
         graphe1_container = ft.Column([
             ft.Container(
-                content=ft.Image(src_base64=img_base64_1, fit=ft.BoxFit.CONTAIN, expand=True),
+                content=ft.Image(src=base64.b64decode(img_base64_1), fit=ft.BoxFit.CONTAIN, expand=True),
                 expand=True,
                 padding=ft.Padding.symmetric(vertical=15),
                 border_radius=22,
@@ -323,7 +323,7 @@ def create_simulation_handler(page: ft.Page, dropdown_indice, input_montant,
         
         graphe2_container = ft.Column([
             ft.Container(
-                content=ft.Image(src_base64=img_base64_2, fit=ft.BoxFit.CONTAIN, expand=True),
+                content=ft.Image(src=base64.b64decode(img_base64_2), fit=ft.BoxFit.CONTAIN, expand=True),
                 expand=True,
                 padding=ft.Padding.symmetric(vertical=15),
                 border_radius=22,

@@ -50,7 +50,10 @@ def dropdown (text, actif_default, liste_actifs, handler= None):
                                 options=[ft.DropdownOption(i) for i in liste_actifs],
                                 border_radius=8,
                                 border_color=ft.Colors.WHITE30,
-                                on_change=handler,
+                                # 0.86 : on_change a disparu du Dropdown M3.
+                                # on_select se declenche au choix d'un element,
+                                # on_text_change pendant la saisie du filtre.
+                                on_select=handler,
                                 value=actif_default,
                                 editable=True, # Sert à editer pour filtrer
                                 enable_filter=True,  # sert à filtrer
@@ -110,7 +113,7 @@ def bouton_on_click (text, on_click, couleur_bouton, icon=None):
     bouton = ft.ElevatedButton(text,
                                 on_click=on_click,
                                 icon=icon,
-                                style=ft.ButtonStyle(bgcolor=couleur_bouton, color=ft.Colors.WHITE, padding=ft.Padding.symmetric(20, 15)),
+                                style=ft.ButtonStyle(bgcolor=couleur_bouton, color=ft.Colors.WHITE, padding=ft.Padding.symmetric(vertical=20, horizontal=15)),
                                 width=400,)
     return bouton
 
@@ -230,7 +233,7 @@ def graphique_matplot_actif(page, couleur_titre_separateur, loader, chart_contai
     img_base64 = base64.b64encode(buf.read()).decode("utf-8")
 
     # -------- FLET --------
-    chart_container.content = ft.Column([ft.Container(content=ft.Image(src_base64=img_base64,
+    chart_container.content = ft.Column([ft.Container(content=ft.Image(src=base64.b64decode(img_base64),
                                                                     fit=ft.BoxFit.CONTAIN,
                                                                     expand=True),
                                                     expand=True,
