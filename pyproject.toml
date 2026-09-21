@@ -20,6 +20,16 @@ target_sdk_version = 36
 # est le plancher. Le build precedent etait a 21.
 min_sdk_version = 23
 
+# En 0.86 les site-packages sont livres dans un zip lu par zipimport. Les
+# paquets qui resolvent leurs donnees par un chemin de fichier reel (__file__)
+# au lieu de importlib.resources y cassent. matplotlib en fait partie :
+#     def get_data_path():
+#         return str(Path(__file__).with_name("mpl-data"))
+# Ses 9 Mo de mpl-data (polices, matplotlibrc) doivent donc etre extraits sur
+# disque, sinon les graphiques plantent sur telephone. numpy et pandas, eux,
+# n'ont pas ce probleme.
+extract_packages = ["matplotlib"]
+
 [tool.flet.ios]
 icon = "assets/icon.png"
 launch_image = "assets/icon.png"
