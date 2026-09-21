@@ -1,4 +1,4 @@
-flet==0.28.3
+flet==0.86.5
 bcrypt==4.2.0
 # Obliger de mettre request ici car Flet ne l'integre pas dans son python embarqué
 requests == 2.31.0

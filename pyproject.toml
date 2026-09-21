@@ -11,6 +11,15 @@ dependencies = ["requests"]
 [tool.flet.android]
 icon = "assets/icon.png"
 
+# Google Play exige l'API 36 (Android 16) pour toute nouvelle application
+# depuis le 31 aout 2026. Sans cette ligne le build heriterait du defaut de
+# Flutter, soit 35, et l'AAB serait refuse a l'envoi.
+target_sdk_version = 36
+
+# Flet 0.86 ne sert plus les bibliotheques natives depuis le disque : minSdk 23
+# est le plancher. Le build precedent etait a 21.
+min_sdk_version = 23
+
 [tool.flet.ios]
 icon = "assets/icon.png"
 launch_image = "assets/icon.png"
