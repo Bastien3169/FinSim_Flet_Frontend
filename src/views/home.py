@@ -60,12 +60,18 @@ def main_page(page: ft.Page):
     buttons = []
     for name, color, route in tiles_button:
         btn = ft.ElevatedButton(
-            content=ft.Text(name, size=12),
+            content=ft.Text(name, size=12, text_align=ft.TextAlign.CENTER),
             bgcolor=color,
             color=ft.Colors.BLACK,
             on_click=lambda e, r=route: page.go(r),
             width=105,
             height=55,
+            # Flet 0.86 applique les marges internes Material 3, plus larges que
+            # celles de l'ancien ElevatedButton. A width=105 le texte n'avait
+            # plus la place et repassait a la ligne. On rend les 105 px au
+            # libelle ; seul "Simulation\nPortefeuille" reste sur deux lignes,
+            # grace a son retour a la ligne explicite.
+            style=ft.ButtonStyle(padding=ft.Padding.all(0)),
         )
         buttons.append(btn)
 
