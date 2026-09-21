@@ -4,6 +4,8 @@
 # Installer les dépendances : pip install -r requirements.txt
 # Lancer l’application : python main.py
 
+import asyncio
+
 import flet as ft
 from src.controllers.navigation import route_change
 from src.api_client.api_client import ClientStorageWrapper
@@ -11,7 +13,7 @@ from src.authmanager_share import auth_manager
 from src.components.components_views import loader_globale
 
 
-def main(page: ft.Page):
+async def main(page: ft.Page):
     page.clean()
     page.title = "FinSim - Finance facile"
     page.window.width = 360
@@ -28,11 +30,19 @@ def main(page: ft.Page):
     page.add(loader)
     page.update()
 
-    # 🔧 Brancher le storage Flet
-    auth_manager.cookies = ClientStorageWrapper(page.client_storage)
+    # 🔧 Brancher le stockage de session
+    # page.client_storage a disparu en Flet 0.86 : on passe par le service
+    # ft.SharedPreferences, qui s'enregistre tout seul aupres de la page.
+    # Le wrapper lit la valeur une fois ici, puis sert les lectures en
+    # synchrone depuis son cache (voir ClientStorageWrapper).
+    storage = ClientStorageWrapper(page, ft.SharedPreferences())
+    await storage.load(auth_manager.cookie_name)
+    auth_manager.cookies = storage
 
     # 🔒 Vérifier la session
-    current_user = auth_manager.get_current_user()
+    # get_current_user() fait un appel reseau bloquant (timeout 10 s) : on le
+    # sort de la boucle d'evenements pour ne pas figer l'affichage du loader.
+    current_user = await asyncio.to_thread(auth_manager.get_current_user)
 
     if current_user:
         page.route = "/"

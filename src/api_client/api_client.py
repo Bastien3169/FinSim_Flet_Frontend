@@ -17,21 +17,56 @@ def get_api_url():
 # ============================================
 
 class ClientStorageWrapper:
-    """Wrapper pour adapter client_storage de Flet aux cookies"""
-    def __init__(self, storage):
-        self.storage = storage
-    
+    """Stockage de la session, compatible Flet 0.86+.
+
+    Flet 0.86 a supprime `page.client_storage`. Son remplacant,
+    le service `ft.SharedPreferences`, n'expose que des methodes `async`,
+    alors que tout l'AuthManager (et ses appelants dans les vues) est
+    synchrone.
+
+    Plutot que de convertir toute la chaine d'authentification en async,
+    on lit la valeur UNE seule fois au demarrage, on la garde en memoire,
+    et on ecrit en tache de fond. Les appelants continuent donc d'utiliser
+    `.get()` et `wrapper[cle] = valeur` en synchrone, sans rien changer.
+
+    Utilisation, depuis un `main()` asynchrone :
+
+        storage = ClientStorageWrapper(page, ft.SharedPreferences())
+        await storage.load("session_id")
+        auth_manager.cookies = storage
+    """
+
+    def __init__(self, page, prefs):
+        self.page = page
+        self.prefs = prefs
+        self._cache = {}
+
+    async def load(self, *keys):
+        """Charge les cles depuis le stockage persistant vers le cache."""
+        for key in keys:
+            try:
+                self._cache[key] = await self.prefs.get(key)
+            except Exception:
+                self._cache[key] = None
+        return self._cache
+
     def get(self, key):
-        return self.storage.get(key)
-    
-    def __setitem__(self, key, value):
-        self.storage.set(key, value)
-    
+        return self._cache.get(key)
+
     def __getitem__(self, key):
-        return self.storage.get(key)
-    
+        return self._cache.get(key)
+
+    def __setitem__(self, key, value):
+        # Le cache est mis a jour immediatement : les lectures synchrones qui
+        # suivent voient la nouvelle valeur sans attendre l'ecriture disque.
+        self._cache[key] = value
+        try:
+            self.page.run_task(self.prefs.set, key, value)
+        except Exception:
+            pass
+
     def save(self):
-        pass  # Flet sauvegarde automatiquement
+        pass  # l'ecriture est declenchee par __setitem__
 
 
 class AuthManager:
