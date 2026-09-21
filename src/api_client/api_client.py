@@ -142,18 +142,29 @@ class AuthManager:
 # CLIENT ADMIN
 # ============================================
 class AdminManager:
-    """Gestion admin via API"""
-    
+    """Gestion admin via API.
+
+    Les routes /api/admin/* exigent desormais une session d'administrateur.
+    On reutilise le stockage deja branche sur l'instance partagee auth_manager.
+    """
+
+    def _cookies(self):
+        from src.authmanager_share import auth_manager  # import tardif : evite un cycle
+        if not auth_manager.cookies:
+            return None
+        session_id = auth_manager.cookies.get(auth_manager.cookie_name)
+        return {"session_id": session_id} if session_id else None
+
     def __init__(self):
         self.api_url = API_URL
     
     def get_all_users(self):
-        response = requests.get(f"{self.api_url}/api/admin/users", timeout=30)
+        response = requests.get(f"{self.api_url}/api/admin/users", cookies=self._cookies(), timeout=30)
         response.raise_for_status()
         return response.json()["users"]
     
     def search_user(self, query):
-        response = requests.get(f"{self.api_url}/api/admin/users/search", params={"query": query}, timeout=30)
+        response = requests.get(f"{self.api_url}/api/admin/users/search", params={"query": query}, cookies=self._cookies(), timeout=30)
         if response.status_code == 404:
             return None
         response.raise_for_status()
@@ -161,12 +172,12 @@ class AdminManager:
     
     def update_user(self, email, username=None, password=None, role=None):
         payload = {"email": email, "username": username, "password": password, "role": role}
-        response = requests.put(f"{self.api_url}/api/admin/users/update", json=payload, timeout=30)
+        response = requests.put(f"{self.api_url}/api/admin/users/update", json=payload, cookies=self._cookies(), timeout=30)
         response.raise_for_status()
         return response.json()
     
     def delete_user(self, email):
-        response = requests.delete(f"{self.api_url}/api/admin/users/delete", params={"email": email}, timeout=30)
+        response = requests.delete(f"{self.api_url}/api/admin/users/delete", params={"email": email}, cookies=self._cookies(), timeout=30)
         response.raise_for_status()
         return response.json()
 
