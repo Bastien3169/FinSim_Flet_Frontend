@@ -56,7 +56,7 @@ def main_page(page: ft.Page):
     # Créer la liste de boutons avec une boucle normale
     buttons = []
     for name, color, route in tiles_button:
-        btn = ft.ElevatedButton(
+        btn = ft.Button(
             content=ft.Text(name, size=12, text_align=ft.TextAlign.CENTER,),# "content" accepte les widjets, pas juste du texte
             bgcolor=color,
             color=ft.Colors.BLACK,

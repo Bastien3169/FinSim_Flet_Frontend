@@ -84,7 +84,7 @@ def add_update_database(page: ft.Page, dossier_csv: str, csv_bdd: str, db_path: 
                                 bgcolor=ft.Colors.with_opacity(0.1, ft.Colors.CYAN_700),
                                 border_radius=20,  # arrondi
                                 padding=ft.Padding.all(2),  # petit espace intérieur
-                                border=ft.Border.all(1, ft.Colors.WHITE30,))  # bord coloré
+                                border=ft.Border.all(1, ft.Colors.WHITE_30,))  # bord coloré
 
     # Création du conteneur loader
     loader = loader_page(couleur_titre_separateur)
@@ -157,13 +157,13 @@ def users_admin_flet(page: ft.Page):
                             ft.Row([ft.Text("🗓️ Date inscription : ", weight=ft.FontWeight.BOLD, color=ft.Colors.BLUE),
                                     ft.Text(f"{registration_date}")]),
                             ft.Divider(height=1, color=ft.Colors.GREY_300),
-                            ft.Row([ft.ElevatedButton("Modifier",
+                            ft.Row([ft.Button("Modifier",
                                                       width=150,
                                                       bgcolor=ft.Colors.CYAN_600,
                                                       color=ft.Colors.WHITE,
                                                       icon=ft.Icons.EDIT,
                                                       on_click=lambda ev, em=email: toggle_edit(ev, em)),
-                                    ft.ElevatedButton("Supprimer",
+                                    ft.Button("Supprimer",
                                                       width=150,
                                                       bgcolor=ft.Colors.RED_400,
                                                       color=ft.Colors.WHITE,
@@ -180,7 +180,7 @@ def users_admin_flet(page: ft.Page):
                                         bgcolor=ft.Colors.with_opacity(0.05, ft.Colors.CYAN_100),
                                         border_radius=10,
                                         padding=15,
-                                        border=ft.Border.all(1, ft.Colors.WHITE30),
+                                        border=ft.Border.all(1, ft.Colors.WHITE_30),
                                         margin=ft.Margin.symmetric(vertical=10))
 
         # Affichage de la fiche user
@@ -217,7 +217,7 @@ def users_admin_flet(page: ft.Page):
                                     value=username, 
                                     width=300,
                                     border_radius=8,
-                                    border_color=ft.Colors.WHITE30,)
+                                    border_color=ft.Colors.WHITE_30,)
 
         new_role = ft.Dropdown(label="Nouveau rôle",
                                label_style=ft.TextStyle(italic=True,size=12),
@@ -225,7 +225,7 @@ def users_admin_flet(page: ft.Page):
                                value=role,
                                width=300,
                                border_radius=8,
-                               border_color=ft.Colors.WHITE30,)
+                               border_color=ft.Colors.WHITE_30,)
         
         new_password = ft.TextField(label="Nouveau mot de passe",
                                     label_style=ft.TextStyle(italic=True,size=12), 
@@ -234,7 +234,7 @@ def users_admin_flet(page: ft.Page):
                                     password=True,
                                     can_reveal_password=True,
                                     border_radius=8,
-                                    border_color=ft.Colors.WHITE30,) # Affiche une icône pour révéler le mdp)
+                                    border_color=ft.Colors.WHITE_30,) # Affiche une icône pour révéler le mdp)
 
         # Création de la fonction de soumission des modifications
         def submit_changes(e):
@@ -257,14 +257,14 @@ def users_admin_flet(page: ft.Page):
     
         
         # Bouton valider les modifications
-        bouton_valid_modif = ft.ElevatedButton("Valider les modifications", width=300, bgcolor=ft.Colors.CYAN_600, color=ft.Colors.WHITE, icon=ft.Icons.CHECK, on_click=submit_changes,)
+        bouton_valid_modif = ft.Button("Valider les modifications", width=300, bgcolor=ft.Colors.CYAN_600, color=ft.Colors.WHITE, icon=ft.Icons.CHECK, on_click=submit_changes,)
 
 
         # Création de la card de modification
         card_modif_iser = ft.Container(bgcolor=ft.Colors.with_opacity(0.05, ft.Colors.CYAN_100),
                             padding=20,
                             border_radius=8,
-                            border=ft.Border.all(2, ft.Colors.WHITE30),
+                            border=ft.Border.all(2, ft.Colors.WHITE_30),
                             alignment=ft.Alignment.CENTER,  # Centre le contenu dans le container
                             content=ft.Column([text_edition, new_username, new_role, new_password, bouton_valid_modif],
                                               spacing=10,
@@ -359,7 +359,7 @@ def users_add_form(page: ft.Page):
                             width=400,
                             border_radius=8,
                             text_style=ft.TextStyle(size=11),
-                            border_color=ft.Colors.WHITE30,
+                            border_color=ft.Colors.WHITE_30,
                             expand=True,)
 
     message_text = ft.Text(size=12, weight="bold", text_align=ft.TextAlign.CENTER, visible=False)

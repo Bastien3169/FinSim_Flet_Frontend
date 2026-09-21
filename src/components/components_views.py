@@ -49,7 +49,7 @@ def dropdown (text, actif_default, liste_actifs, handler= None):
                                 label_style=ft.TextStyle(decoration=ft.TextDecoration.UNDERLINE, size=16),
                                 options=[ft.DropdownOption(i) for i in liste_actifs],
                                 border_radius=8,
-                                border_color=ft.Colors.WHITE30,
+                                border_color=ft.Colors.WHITE_30,
                                 # 0.86 : on_change a disparu du Dropdown M3.
                                 # on_select se declenche au choix d'un element,
                                 # on_text_change pendant la saisie du filtre.
@@ -67,7 +67,7 @@ def periode_input(text_label="Ex: 3, 9, 18...", hint_texte=None, hint_styl=None,
     input_periode = ft.TextField(label=text_label, 
                                 label_style=ft.TextStyle(size=12, italic=True),
                                 border_radius=8,
-                                border_color=ft.Colors.WHITE30,
+                                border_color=ft.Colors.WHITE_30,
                                 hint_text = hint_texte,
                                 hint_style = hint_styl,
                                 text_style=ft.TextStyle(size=11),
@@ -87,7 +87,7 @@ def dcavsls_input (labels, values, hint_texte):
                                 value=values,
                                 text_style=ft.TextStyle(size=12,italic=True,weight=ft.FontWeight.BOLD,),
                                 border_radius=8,
-                                border_color=ft.Colors.WHITE30,
+                                border_color=ft.Colors.WHITE_30,
                                 hint_text = hint_texte,
                                 hint_style = ft.TextStyle(size=10, italic=True,),
                                 width=400,
@@ -110,7 +110,7 @@ def contenu_widget(titre, liste_widget):
 
 # ------- Bouton on_cick -------
 def bouton_on_click (text, on_click, couleur_bouton, icon=None):
-    bouton = ft.ElevatedButton(text,
+    bouton = ft.Button(text,
                                 on_click=on_click,
                                 icon=icon,
                                 style=ft.ButtonStyle(bgcolor=couleur_bouton, color=ft.Colors.WHITE, padding=ft.Padding.symmetric(vertical=20, horizontal=15)),
@@ -133,7 +133,7 @@ def bout_ret_haut(couleur_bouton_fleche, handler = None):
 
 # ------- Bouton retour acceuil -------
 def bout_ret_acceuil(couleur_bouton_fleche, text="Retour accueil", handler = None, icons=ft.Icons.HOME):
-    bouton_retour = ft.ElevatedButton(text,
+    bouton_retour = ft.Button(text,
                                     icon=icons, # ajoute icône à gauche du texte
                                     style=ft.ButtonStyle(color=ft.Colors.WHITE,
                                                         bgcolor=couleur_bouton_fleche,

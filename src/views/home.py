@@ -59,7 +59,7 @@ def main_page(page: ft.Page):
     # --- Création des boutons ---
     buttons = []
     for name, color, route in tiles_button:
-        btn = ft.ElevatedButton(
+        btn = ft.Button(
             content=ft.Text(name, size=12, text_align=ft.TextAlign.CENTER),
             bgcolor=color,
             color=ft.Colors.BLACK,

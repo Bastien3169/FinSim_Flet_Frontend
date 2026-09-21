@@ -55,10 +55,10 @@ async def main(page: ft.Page):
     page.on_route_change = on_route_change
     route_change(page)
 
-ft.app(target=main)
+ft.run(main)
 
-'''ft.app(
-    target=main,
+'''ft.run(
+    main,
     view=ft.AppView.WEB_BROWSER,  # ouvre dans le navigateur
     port=8550)                     # important : même port que dans l'email
 '''

@@ -40,7 +40,7 @@ def main(page: ft.Page):
     page.on_route_change = on_route_change
     route_change(page)
 
-ft.app(target=main)
+ft.run(main)
 
 '''ft.app(
     target=main,

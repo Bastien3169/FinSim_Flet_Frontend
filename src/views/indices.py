@@ -78,7 +78,7 @@ def create_rendement_section(page):
     # Cadre autour de la liste des indices sélectionnés
     cadre_text = ft.Container(content=ft.Column([text_liste_indices, liste_selection],horizontal_alignment=ft.CrossAxisAlignment.START),
                               padding=5,
-                              border=ft.Border.all(2, ft.Colors.WHITE30),
+                              border=ft.Border.all(2, ft.Colors.WHITE_30),
                               border_radius=10,
                               expand=True,
                               alignment=ft.Alignment.TOP_LEFT)
@@ -111,7 +111,7 @@ def create_rendement_section(page):
                                                     spacing=10,
                                                     alignment=ft.MainAxisAlignment.START),
                                 padding=10,
-                                border=ft.Border.all(2, ft.Colors.WHITE30),
+                                border=ft.Border.all(2, ft.Colors.WHITE_30),
                                 border_radius=10,
                                 expand=True,
                                 alignment=ft.Alignment.TOP_LEFT)
