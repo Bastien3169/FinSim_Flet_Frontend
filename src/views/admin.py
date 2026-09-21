@@ -83,8 +83,8 @@ def add_update_database(page: ft.Page, dossier_csv: str, csv_bdd: str, db_path: 
                                 height=15,
                                 bgcolor=ft.Colors.with_opacity(0.1, ft.Colors.CYAN_700),
                                 border_radius=20,  # arrondi
-                                padding=ft.padding.all(2),  # petit espace intérieur
-                                border=ft.border.all(1, ft.Colors.WHITE30,))  # bord coloré
+                                padding=ft.Padding.all(2),  # petit espace intérieur
+                                border=ft.Border.all(1, ft.Colors.WHITE30,))  # bord coloré
 
     # Création du conteneur loader
     loader = loader_page(couleur_titre_separateur)
@@ -111,7 +111,7 @@ def users_admin_flet(page: ft.Page):
                                  style=ft.TextStyle(decoration=ft.TextDecoration.UNDERLINE))
     
     # Création du conteneur pour le sous-titre
-    sous_titre_contenair = ft.Container(content=sous_titre, alignment=ft.alignment.center, padding=ft.padding.only(top=35))
+    sous_titre_contenair = ft.Container(content=sous_titre, alignment=ft.Alignment.CENTER, padding=ft.Padding.only(top=35))
 
 
     # Fonction input pour recherche users
@@ -180,8 +180,8 @@ def users_admin_flet(page: ft.Page):
                                         bgcolor=ft.Colors.with_opacity(0.05, ft.Colors.CYAN_100),
                                         border_radius=10,
                                         padding=15,
-                                        border=ft.border.all(1, ft.Colors.WHITE30),
-                                        margin=ft.margin.symmetric(vertical=10))
+                                        border=ft.Border.all(1, ft.Colors.WHITE30),
+                                        margin=ft.Margin.symmetric(vertical=10))
 
         # Affichage de la fiche user
         results_column.controls.append(fiche_container)
@@ -221,7 +221,7 @@ def users_admin_flet(page: ft.Page):
 
         new_role = ft.Dropdown(label="Nouveau rôle",
                                label_style=ft.TextStyle(italic=True,size=12),
-                               options=[ft.dropdown.Option("admin"), ft.dropdown.Option("user")],
+                               options=[ft.DropdownOption("admin"), ft.DropdownOption("user")],
                                value=role,
                                width=300,
                                border_radius=8,
@@ -264,8 +264,8 @@ def users_admin_flet(page: ft.Page):
         card_modif_iser = ft.Container(bgcolor=ft.Colors.with_opacity(0.05, ft.Colors.CYAN_100),
                             padding=20,
                             border_radius=8,
-                            border=ft.border.all(2, ft.Colors.WHITE30),
-                            alignment=ft.alignment.center,  # Centre le contenu dans le container
+                            border=ft.Border.all(2, ft.Colors.WHITE30),
+                            alignment=ft.Alignment.CENTER,  # Centre le contenu dans le container
                             content=ft.Column([text_edition, new_username, new_role, new_password, bouton_valid_modif],
                                               spacing=10,
                                               horizontal_alignment=ft.CrossAxisAlignment.CENTER,  # Centre horizontalement les éléments
@@ -289,7 +289,7 @@ def users_table_simple():
                                  style=ft.TextStyle(decoration=ft.TextDecoration.UNDERLINE))
     
     # Création du conteneur pour le sous-titre
-    sous_titre_contenair = ft.Container(content=sous_titre, alignment=ft.alignment.center)
+    sous_titre_contenair = ft.Container(content=sous_titre, alignment=ft.Alignment.CENTER)
 
     # Récupérer tous les users
     all_users = admin_manager.get_all_users()
@@ -316,7 +316,7 @@ def users_table_simple():
     # Optionnel : cadre scrollable (comme tes autres tableaux)
     cadre_table_users = ft.Container(content=ft.Column([users_table],
                                                        scroll=ft.ScrollMode.AUTO,),
-                                    border=ft.border.all(2, couleur_titre_separateur),
+                                    border=ft.Border.all(2, couleur_titre_separateur),
                                     border_radius=10,
                                     padding=5,
                                     height=300,)
@@ -337,7 +337,7 @@ def users_add_form(page: ft.Page):
                                  text_align=ft.TextAlign.CENTER,
                                  style=ft.TextStyle(decoration=ft.TextDecoration.UNDERLINE))
     
-    sous_titre_contenair = ft.Container(content=sous_titre, alignment=ft.alignment.center)
+    sous_titre_contenair = ft.Container(content=sous_titre, alignment=ft.Alignment.CENTER)
     
     # Champs du formulaire
     username_field = periode_input(text_label="👤 Username", hint_texte=None, hint_styl=None, passwords=None, oeil=None, widths=400, fonc_ajouter_periode=None)
@@ -354,7 +354,7 @@ def users_add_form(page: ft.Page):
 
     role_field = ft.Dropdown(label="🛡️ Rôle",
                             label_style=ft.TextStyle(decoration=ft.TextDecoration.UNDERLINE, size=16),
-                            options=[ft.dropdown.Option("user"), ft.dropdown.Option("admin"),],
+                            options=[ft.DropdownOption("user"), ft.DropdownOption("admin"),],
                             value="user",
                             width=400,
                             border_radius=8,
@@ -405,7 +405,7 @@ def users_add_form(page: ft.Page):
     bouton = bouton_on_click(text = "Ajouter",on_click=on_create_user, icon=ft.Icons.PERSON_ADD, couleur_bouton=couleur_bouton)
 
     # Card globale du formulaire
-    form_container = ft.Container(padding=ft.padding.only(top=20, bottom=0),
+    form_container = ft.Container(padding=ft.Padding.only(top=20, bottom=0),
                                   content=ft.Column([sous_titre_contenair,
                                                     username_field,
                                                     email_field,

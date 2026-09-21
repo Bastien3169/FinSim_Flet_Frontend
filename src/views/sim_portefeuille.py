@@ -58,7 +58,7 @@ def create_rendement_section(page):
     cadre_portefeuille = ft.Container(
         content=ft.Column([titre_portefeuille, liste_poids, texte_total], spacing=8),
         padding=10,
-        border=ft.border.all(2, ft.Colors.WHITE30),
+        border=ft.Border.all(2, ft.Colors.WHITE30),
         border_radius=10,
         expand=True
     )
@@ -82,7 +82,7 @@ def create_rendement_section(page):
             liste_periodes,
         ], spacing=10, alignment=ft.MainAxisAlignment.START),
         padding=10,
-        border=ft.border.all(2, ft.Colors.WHITE30),
+        border=ft.Border.all(2, ft.Colors.WHITE30),
         border_radius=10,
         expand=True
     )

@@ -279,8 +279,8 @@ def create_simulation_handler(page: ft.Page, dropdown_indice, input_montant,
         output_zone.controls.append(
             ft.Container(
                 content=ft.ProgressRing(color=couleur_titre_separateur, width=50, height=50),
-                padding=ft.padding.only(top=20),
-                alignment=ft.alignment.center
+                padding=ft.Padding.only(top=20),
+                alignment=ft.Alignment.CENTER
             )
         )
         page.update()
@@ -303,9 +303,9 @@ def create_simulation_handler(page: ft.Page, dropdown_indice, input_montant,
         
         graphe1_container = ft.Column([
             ft.Container(
-                content=ft.Image(src_base64=img_base64_1, fit=ft.ImageFit.CONTAIN, expand=True),
+                content=ft.Image(src_base64=img_base64_1, fit=ft.BoxFit.CONTAIN, expand=True),
                 expand=True,
-                padding=ft.padding.symmetric(vertical=15),
+                padding=ft.Padding.symmetric(vertical=15),
                 border_radius=22,
                 clip_behavior=ft.ClipBehavior.ANTI_ALIAS,
                 bgcolor='black',
@@ -323,9 +323,9 @@ def create_simulation_handler(page: ft.Page, dropdown_indice, input_montant,
         
         graphe2_container = ft.Column([
             ft.Container(
-                content=ft.Image(src_base64=img_base64_2, fit=ft.ImageFit.CONTAIN, expand=True),
+                content=ft.Image(src_base64=img_base64_2, fit=ft.BoxFit.CONTAIN, expand=True),
                 expand=True,
-                padding=ft.padding.symmetric(vertical=15),
+                padding=ft.Padding.symmetric(vertical=15),
                 border_radius=22,
                 clip_behavior=ft.ClipBehavior.ANTI_ALIAS,
                 bgcolor='black',
@@ -348,7 +348,7 @@ def create_simulation_handler(page: ft.Page, dropdown_indice, input_montant,
         )
         titre_tableau1_container = ft.Container(
             content=titre_tableau1,
-            alignment=ft.alignment.center
+            alignment=ft.Alignment.CENTER
         )
         
         tableau1 = ft.DataTable(
@@ -367,7 +367,7 @@ def create_simulation_handler(page: ft.Page, dropdown_indice, input_montant,
         cadre_tableau1 = ft.Container(
             content=ft.Column([ft.Row([tableau1], scroll=ft.ScrollMode.AUTO)],
                             scroll=ft.ScrollMode.AUTO),
-            border=ft.border.all(0.5, couleur_titre_separateur),
+            border=ft.Border.all(0.5, couleur_titre_separateur),
             border_radius=10,
             padding=5,
             height=300,
@@ -382,8 +382,8 @@ def create_simulation_handler(page: ft.Page, dropdown_indice, input_montant,
         )
         titre_tableau2_container = ft.Container(
             content=titre_tableau2,
-            alignment=ft.alignment.center,
-            padding=ft.padding.only(top=35)
+            alignment=ft.Alignment.CENTER,
+            padding=ft.Padding.only(top=35)
         )
         
         tableau2 = ft.DataTable(
@@ -402,7 +402,7 @@ def create_simulation_handler(page: ft.Page, dropdown_indice, input_montant,
         cadre_tableau2 = ft.Container(
             content=ft.Column([ft.Row([tableau2], scroll=ft.ScrollMode.AUTO)],
                             scroll=ft.ScrollMode.AUTO),
-            border=ft.border.all(0.5, couleur_titre_separateur),
+            border=ft.Border.all(0.5, couleur_titre_separateur),
             border_radius=10,
             padding=5,
             height=300,

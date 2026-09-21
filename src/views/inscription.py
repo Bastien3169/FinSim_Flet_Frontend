@@ -59,8 +59,7 @@ def register_view(page: ft.Page):
 
         if success:
             # Option : rediriger vers la page de connexion
-            page.snack_bar = ft.SnackBar(ft.Text("Compte créé, vous pouvez vous connecter."))
-            page.snack_bar.open = True
+            page.show_dialog(ft.SnackBar(ft.Text("Compte créé, vous pouvez vous connecter.")))
             page.go("/auth_manag")  # adapte selon ta route de connexion
             page.update()
 

@@ -18,10 +18,10 @@ def titre_separateur(text,couleur_titre_separateur, padding_text_top = 35):
                                                     color=couleur_titre_separateur,
                                                     weight=ft.FontWeight.BOLD,
                                                     size=21),
-                                                    padding=ft.padding.only(top=padding_text_top))
+                                                    padding=ft.Padding.only(top=padding_text_top))
 
     # Widget : ligne de séparation dans un container pour avoir padding que en dessous
-    separation = ft.Container(content=ft.Divider(thickness=2, color=couleur_titre_separateur), padding=ft.padding.only(bottom=15))
+    separation = ft.Container(content=ft.Divider(thickness=2, color=couleur_titre_separateur), padding=ft.Padding.only(bottom=15))
     
     return [text_composition, separation]
 
@@ -37,8 +37,8 @@ def loader_page(couleur_titre_separateur):
 # ------- loader global -------
 def loader_globale(couleur_titre_separateur):
     loader_global = ft.Container(content=ft.ProgressRing(color=couleur_titre_separateur, width=60, height=60),
-                                 alignment=ft.alignment.center,
-                                 margin=ft.margin.all(100),
+                                 alignment=ft.Alignment.CENTER,
+                                 margin=ft.Margin.all(100),
                                  visible=True)
     return loader_global
 
@@ -47,7 +47,7 @@ def loader_globale(couleur_titre_separateur):
 def dropdown (text, actif_default, liste_actifs, handler= None):
     dropdown_multi = ft.Dropdown(label=text,
                                 label_style=ft.TextStyle(decoration=ft.TextDecoration.UNDERLINE, size=16),
-                                options=[ft.dropdown.Option(i) for i in liste_actifs],
+                                options=[ft.DropdownOption(i) for i in liste_actifs],
                                 border_radius=8,
                                 border_color=ft.Colors.WHITE30,
                                 on_change=handler,
@@ -110,7 +110,7 @@ def bouton_on_click (text, on_click, couleur_bouton, icon=None):
     bouton = ft.ElevatedButton(text,
                                 on_click=on_click,
                                 icon=icon,
-                                style=ft.ButtonStyle(bgcolor=couleur_bouton, color=ft.Colors.WHITE, padding=ft.padding.symmetric(20, 15)),
+                                style=ft.ButtonStyle(bgcolor=couleur_bouton, color=ft.Colors.WHITE, padding=ft.Padding.symmetric(20, 15)),
                                 width=400,)
     return bouton
 
@@ -123,7 +123,7 @@ def bout_ret_haut(couleur_bouton_fleche, handler = None):
 
     container_retour_haut = ft.Container(content=ft.Row([bouton_retour_haut], 
                                                         alignment=ft.MainAxisAlignment.START),
-                                        padding=ft.padding.only(top=30))        # plus aucun padding
+                                        padding=ft.Padding.only(top=30))        # plus aucun padding
     
     return container_retour_haut
 
@@ -134,13 +134,13 @@ def bout_ret_acceuil(couleur_bouton_fleche, text="Retour accueil", handler = Non
                                     icon=icons, # ajoute icône à gauche du texte
                                     style=ft.ButtonStyle(color=ft.Colors.WHITE,
                                                         bgcolor=couleur_bouton_fleche,
-                                                        padding=ft.padding.symmetric(horizontal=20, vertical=15)),
+                                                        padding=ft.Padding.symmetric(horizontal=20, vertical=15)),
                                     on_click=handler)  # Redirection vers la page d'accueil
     
 
     container_bouton = ft.Container(content=bouton_retour,
-                                    alignment=ft.alignment.center,
-                                    padding=ft.padding.only(top=20, bottom=20))  # Espacement avant et après
+                                    alignment=ft.Alignment.CENTER,
+                                    padding=ft.Padding.only(top=20, bottom=20))  # Espacement avant et après
     
     return container_bouton
 
@@ -168,7 +168,7 @@ def tableau_cadre(expands=False, couleur=ft.Colors.WHITE, heights=None):
 
     # ✅ Cadre final
     cadre_tableau = ft.Container(content=vertical_scroll,
-                                border=ft.border.all(1, couleur),
+                                border=ft.Border.all(1, couleur),
                                 border_radius=10,
                                 height=heights,
                                 padding=5,)
@@ -231,7 +231,7 @@ def graphique_matplot_actif(page, couleur_titre_separateur, loader, chart_contai
 
     # -------- FLET --------
     chart_container.content = ft.Column([ft.Container(content=ft.Image(src_base64=img_base64,
-                                                                    fit=ft.ImageFit.CONTAIN,
+                                                                    fit=ft.BoxFit.CONTAIN,
                                                                     expand=True),
                                                     expand=True,
                                                     padding=0.5,

@@ -53,10 +53,10 @@ def create_rendement_section(page):
             liste_selection
         ], horizontal_alignment=ft.CrossAxisAlignment.START),
         padding=5,
-        border=ft.border.all(2, ft.Colors.WHITE30),
+        border=ft.Border.all(2, ft.Colors.WHITE30),
         border_radius=10,
         expand=True,
-        alignment=ft.alignment.top_left
+        alignment=ft.Alignment.TOP_LEFT
     )
 
     text_periode = ft.Text("Ajouter une période (en mois)", size=11, style=ft.TextStyle(decoration=ft.TextDecoration.UNDERLINE))
@@ -73,10 +73,10 @@ def create_rendement_section(page):
             liste_periodes,
         ], spacing=10, alignment=ft.MainAxisAlignment.START),
         padding=10,
-        border=ft.border.all(2, ft.Colors.WHITE30),
+        border=ft.Border.all(2, ft.Colors.WHITE30),
         border_radius=10,
         expand=True,
-        alignment=ft.alignment.top_left
+        alignment=ft.Alignment.TOP_LEFT
     )
 
     table, cadre_tableau = tableau_cadre(expands=False, couleur=couleur_titre_separateur, heights=None)

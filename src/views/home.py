@@ -21,8 +21,8 @@ def main_page(page: ft.Page):
                                                  color=couleur_titre_separateur, 
                                                  size=12, 
                                                  text_align=ft.TextAlign.JUSTIFY,),
-                                padding=ft.padding.symmetric(vertical=10, horizontal=10),
-                                alignment=ft.alignment.center,)
+                                padding=ft.Padding.symmetric(vertical=10, horizontal=10),
+                                alignment=ft.Alignment.CENTER,)
 
     # --- Liste des boutons selon rôle ---
     current_user = auth_manager.get_current_user()
@@ -54,7 +54,7 @@ def main_page(page: ft.Page):
         ]
 
     # --- Séparation ---
-    separation = ft.Container(content=ft.Divider(thickness=2, color=couleur_titre_separateur), padding=ft.padding.only(top=25, bottom=0),)
+    separation = ft.Container(content=ft.Divider(thickness=2, color=couleur_titre_separateur), padding=ft.Padding.only(top=25, bottom=0),)
 
     # --- Création des boutons ---
     buttons = []
@@ -77,7 +77,7 @@ def main_page(page: ft.Page):
                             expand=True,)
 
     grid_avec_espace = ft.Container(content=centered_grid,
-                                    padding=ft.padding.only(top=10),)
+                                    padding=ft.Padding.only(top=10),)
 
     # --- Fonction logout ---
     def handle_logout(e):
@@ -92,7 +92,7 @@ def main_page(page: ft.Page):
     texte_droit = ft.Container(content=ft.Text("© 2025 FinSim — Bastien Maurières. Tous droits réservés.",
                                                color="#F7F7F7",
                                                size=9,),
-                                alignment=ft.alignment.center,)
+                                alignment=ft.Alignment.CENTER,)
     
     # --- Lien vers version web ---
     lien_web = ft.Container(
@@ -104,8 +104,8 @@ def main_page(page: ft.Page):
                                 on_click=lambda e: page.launch_url("https://finsim.up.railway.app/")),
             ],
         ),
-        alignment=ft.alignment.center,
-        padding=ft.padding.only(top=10),
+        alignment=ft.Alignment.CENTER,
+        padding=ft.Padding.only(top=10),
     )
 
     # --- Ajout des éléments à la page ---

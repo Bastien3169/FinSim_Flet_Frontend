@@ -83,10 +83,10 @@ def create_rendement_section(page):
         ],
             horizontal_alignment=ft.CrossAxisAlignment.START),
         padding=5,
-        border=ft.border.all(2, ft.Colors.WHITE30),
+        border=ft.Border.all(2, ft.Colors.WHITE30),
         border_radius=10,
         expand=True,
-        alignment=ft.alignment.top_left
+        alignment=ft.Alignment.TOP_LEFT
     )
 
     # Text pour période à ajouter
@@ -112,9 +112,9 @@ def create_rendement_section(page):
                                                     spacing=10,
                                                     alignment=ft.MainAxisAlignment.START),
                                             padding=10,
-                                            border=ft.border.all(2, ft.Colors.WHITE30),
+                                            border=ft.Border.all(2, ft.Colors.WHITE30),
                                             border_radius=10,
-                                            alignment=ft.alignment.top_left)
+                                            alignment=ft.Alignment.TOP_LEFT)
 
     # Ossature tableau rendement + cadre
     table, cadre_tableau = tableau_cadre(expands = False, couleur = couleur_titre_separateur, heights = None)

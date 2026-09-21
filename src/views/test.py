@@ -16,10 +16,10 @@ def main_page(page: ft.Page):
                                                 size=18,
                                                 color=couleur_titre_separateur,
                                                 text_align=ft.TextAlign.CENTER,),
-                                        border=ft.border.all(0.5, couleur_titre_separateur),
+                                        border=ft.Border.all(0.5, couleur_titre_separateur),
                                         border_radius=10,
-                                        padding=ft.padding.all(10),
-                                        alignment=ft.alignment.center)
+                                        padding=ft.Padding.all(10),
+                                        alignment=ft.Alignment.CENTER)
 
     #Texte explicatif application
     texte_explication = ft.Container(content=ft.Text("Analysez les performances historiques des indices, actions, cryptos et ETF en un clin d'œil.\n"
@@ -30,8 +30,8 @@ def main_page(page: ft.Page):
                                                  color=couleur_titre_separateur, 
                                                  size=12, 
                                                  text_align=ft.TextAlign.JUSTIFY,),
-                                padding=ft.padding.symmetric(vertical=10, horizontal=10),
-                                alignment=ft.alignment.center,)
+                                padding=ft.Padding.symmetric(vertical=10, horizontal=10),
+                                alignment=ft.Alignment.CENTER,)
 
 
     # Liste des tuiles
@@ -51,7 +51,7 @@ def main_page(page: ft.Page):
     ]
 
     # Widget : ligne de séparation dans un container pour avoir padding que en dessous
-    separation = ft.Container(content=ft.Divider(thickness=2, color=couleur_titre_separateur), padding=ft.padding.only(top=15,bottom=15))
+    separation = ft.Container(content=ft.Divider(thickness=2, color=couleur_titre_separateur), padding=ft.Padding.only(top=15,bottom=15))
 
     # Créer la liste de boutons avec une boucle normale
     buttons = []
@@ -81,7 +81,7 @@ def main_page(page: ft.Page):
     # Ajouter le padding en passant par un Container
     grid_avec_espace = ft.Container(
         content=centered_grid,
-        padding=ft.padding.only(top=20)
+        padding=ft.Padding.only(top=20)
     )
     
     page.add(*titre, grid_avec_espace, separation, texte_explication,)

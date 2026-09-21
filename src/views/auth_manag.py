@@ -15,8 +15,7 @@ def login_view(page: ft.Page):
     feedback = ft.Text("", color=ft.Colors.RED_300, size=12, visible=False, weight="bold", text_align=ft.TextAlign.CENTER,)
 
     def on_click_mdp_oublie(e):
-        page.snack_bar = ft.SnackBar(ft.Text("Redirection vers la page de mot de passe oublié..."))
-        page.snack_bar.open = True
+        page.show_dialog(ft.SnackBar(ft.Text("Redirection vers la page de mot de passe oublié...")))
         page.go("/mdp_oublie")
         page.update()
 
@@ -61,8 +60,7 @@ def login_view(page: ft.Page):
     bout_connexion = bouton_on_click("Se connecter", on_click=handle_login, icon=ft.Icons.PERSON, couleur_bouton=couleur_titre_separateur,)
 
     def on_click_inscription(e):
-        page.snack_bar = ft.SnackBar(ft.Text("Redirection vers la page d'inscription..."))
-        page.snack_bar.open = True
+        page.show_dialog(ft.SnackBar(ft.Text("Redirection vers la page d'inscription...")))
         page.go("/inscription")
         page.update()
 

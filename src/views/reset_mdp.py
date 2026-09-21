@@ -74,10 +74,8 @@ def reset_password_view(page: ft.Page, token: str):
         page.update()
 
         if success:
-            page.snack_bar = ft.SnackBar(
-                ft.Text("✅ Mot de passe modifié avec succès !"))
-
-            page.snack_bar.open = True
+            page.show_dialog(ft.SnackBar(
+                ft.Text("✅ Mot de passe modifié avec succès !")))
             page.update()
 
             # Redirection vers page de connexion / gestion auth
@@ -118,7 +116,7 @@ def reset_mdp(page: ft.Page):
                                               weight="bold",
                                               color=ft.Colors.RED_300,
                                               text_align=ft.TextAlign.CENTER,),
-                              padding=ft.padding.only(top=50)))
+                              padding=ft.Padding.only(top=50)))
 
         # Bouton retour accueil / auth
         bouton_retour = bout_ret_acceuil(couleur_bouton_fleche, handler=lambda e: page.go("/auth_manag"),)
